@@ -1,3 +1,13 @@
+## FastAPI Web Application
+
+This is a web application built with Python's FastAPI framework.
+The application provides endpoints for:
+
+- user signup, login,
+- adding, retrieving, and deleting posts
+
+The app user token-based authentication and caches posts in memory for optimal performance.
+
 ## Setup
 
 This server has been developed and tested using Python 3.10.11.
