@@ -1,6 +1,6 @@
 ## Setup
 
-This server has been developed and tested using Python 3.12.2.
+This server has been developed and tested using Python 3.10.11.
 
 ### Install
 
