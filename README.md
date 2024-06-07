@@ -12,6 +12,12 @@ pip install -r requirements.txt
 
 ### Initialize database
 
+```
+mysql -u root
+...
+mysql> create database mvc;
+```
+
 ```bash
 alembic upgrade head
 ```
