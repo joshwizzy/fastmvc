@@ -34,6 +34,8 @@ alembic upgrade head
 
 ### Environment Variables
 
+Copy `.env.example` to `.env` and update `DATABASE_URL` to match your database settings
+
 ## Run
 
 From the root of this repo:
