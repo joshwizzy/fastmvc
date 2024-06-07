@@ -23,7 +23,7 @@ def get_posts(db: Session, user_id: int):
     posts = get_cached_response("posts")
     if not posts:
         posts = db.query(models.Post).filter(models.Post.owner_id == user_id).all()
-        cache_response(posts)
+        cache_response("posts", posts)
 
     return posts
 
