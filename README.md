@@ -20,6 +20,10 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
+### Environment Variables
+
+Copy `.env.example` to `.env` and update `DATABASE_URL` to match your database settings
+
 ### Initialize database
 
 ```
@@ -28,13 +32,11 @@ mysql -u root
 mysql> create database mvc;
 ```
 
+Update `sqlalchemy.url = mysql+mysqlconnector://root:@localhost/mvc` in `alembic.ini`
+
 ```bash
 alembic upgrade head
 ```
-
-### Environment Variables
-
-Copy `.env.example` to `.env` and update `DATABASE_URL` to match your database settings
 
 ## Run
 
