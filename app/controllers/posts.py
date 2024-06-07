@@ -8,7 +8,7 @@ from db import schemas
 
 from db import models
 
-from utils import cache_response, get_cached_response
+from utils import cache_response, get_cached_response, clear_cache
 
 
 def create_post(db: Session, post: schemas.PostCreate, user_id: int):
@@ -16,6 +16,7 @@ def create_post(db: Session, post: schemas.PostCreate, user_id: int):
     db.add(db_post)
     db.commit()
     db.refresh(db_post)
+    clear_cache("posts")
     return db_post
 
 
@@ -37,6 +38,7 @@ def delete_post(db: Session, post_id: int, user_id: int):
     if post:
         db.delete(post)
         db.commit()
+        clear_cache("posts")
         return post
     else:
         return None
