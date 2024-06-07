@@ -4,9 +4,11 @@ from jose import JWTError, jwt
 from fastapi import HTTPException, Depends
 from datetime import datetime, timedelta
 
-from .app.database import models
+from db import schemas
 
-from ... import schemas, utils
+from db import models
+
+from utils import cache_response, get_cached_response
 
 
 def create_post(db: Session, post: schemas.PostCreate, user_id: int):
@@ -18,7 +20,12 @@ def create_post(db: Session, post: schemas.PostCreate, user_id: int):
 
 
 def get_posts(db: Session, user_id: int):
-    return db.query(models.Post).filter(models.Post.owner_id == user_id).all()
+    posts = get_cached_response("posts")
+    if not posts:
+        posts = db.query(models.Post).filter(models.Post.owner_id == user_id).all()
+        cache_response(posts)
+
+    return posts
 
 
 def delete_post(db: Session, post_id: int, user_id: int):

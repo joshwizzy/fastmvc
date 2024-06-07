@@ -5,8 +5,9 @@ from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
-from controllers import users
+from controllers import posts, users
 from db import schemas
+from utils import get_cached_response
 
 from db.database import get_db
 
@@ -46,13 +47,13 @@ def add_post(
     db: Session = Depends(get_db),
 ):
     current_user = users.get_current_user(db, token)
-    return users.create_post(db=db, post=post, user_id=current_user.id)
+    return posts.create_post(db=db, post=post, user_id=current_user.id)
 
 
 @router.get("/posts", response_model=List[schemas.PostOut])
 def get_posts(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     current_user = users.get_current_user(db, token)
-    return users.get_posts(db=db, user_id=current_user.id)
+    return posts.get_posts(db=db, user_id=current_user.id)
 
 
 @router.delete("/posts/{post_id}", response_model=schemas.PostOut)
@@ -60,7 +61,7 @@ def delete_post(
     post_id: int, token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)
 ):
     current_user = users.get_current_user(db, token)
-    post = users.delete_post(db=db, post_id=post_id, user_id=current_user.id)
+    post = posts.delete_post(db=db, post_id=post_id, user_id=current_user.id)
     if not post:
         raise HTTPException(status_code=404, detail="Post not found")
     return post

@@ -20,7 +20,7 @@ class Token(BaseModel):
 
 
 class PostCreate(BaseModel):
-    text: str = Field(max_length=1048576)
+    text: str = Field(max_length=1048576)  # MAX 1MB
 
 
 class PostOut(BaseModel):
