@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 from jose import JWTError, jwt
 from fastapi import HTTPException
+from fastapi import status
 from datetime import datetime, timedelta
 
 from db import schemas
@@ -59,7 +60,7 @@ def authenticate_user(db: Session, email: str, password: str):
 
 def get_current_user(db: Session, token: str):
     credentials_exception = HTTPException(
-        status_code=HTTP_401_UNAUTHORIZED,
+        status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
         headers={"WWW-Authenticate": "Bearer"},
     )
