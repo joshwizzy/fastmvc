@@ -22,7 +22,7 @@ pip install -r requirements.txt
 
 ### Environment Variables
 
-Copy `.env.example` to `.env` and update `DATABASE_URL` to match your database settings
+Copy `.env.example` in the `app` folder to `.env` and update `DATABASE_URL` to match your database settings
 
 ### Initialize database
 
